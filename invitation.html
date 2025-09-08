@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Undangan Pernikahan</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: url('https://www.transparenttextures.com/patterns/golden-waves.png'),
+              linear-gradient(to bottom, #fff7e6, #f9e4b7);
+  background-size: cover;
+  color: #333;
+  text-align: center;
+  transition: 0.4s ease;
+}
+.dark-mode {
+  background: linear-gradient(to bottom, #1c1c1c, #3a3a3a);
+  color: #f1f1f1;
+}
+
+.overlay {
+  background: rgba(255, 255, 255, 0.9);
+  min-height: 100vh;
+  padding: 30px 20px;
+  position: relative;
+  transition: 0.4s ease;
+}
+.dark-mode .overlay { background: rgba(0,0,0,0.7); }
+
+.invitation {
+  background: #fff;
+  border: 5px double #d4af37;
+  padding: 40px 25px;
+  margin: 30px auto;
+  max-width: 700px;
+  border-radius: 25px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  animation: fadeIn 2s ease-in-out;
+  text-align: center;
+}
+.dark-mode .invitation {
+  background: #2a2a2a;
+  color: #f1f1f1;
+  border-color: #f1c40f;
+}
+
+h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 50px;
+  color: #b76e79;
+  margin: 15px 0;
+}
+.dark-mode h1 { color: #f1c40f; }
+
+.section {
+  margin: 25px auto;
+  padding: 15px;
+  border: 1px dashed #d4af37;
+  border-radius: 10px;
+  background: #fffbea;
+  max-width: 400px;
+  text-align: left;
+}
+.dark-mode .section {
+  background: #444;
+  border-color: #f1c40f;
+}
+
+.map-link {
+  display: inline-block;
+  margin: 20px auto;
+  padding: 12px 20px;
+  background: #b76e79;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
+.map-link:hover { background: #8d4c56; }
+.dark-mode .map-link { background: #f1c40f; color: #222; }
+
+footer { margin: 30px 0 0; font-size: 16px; }
+
+/* Kontrol floating */
+.controls-wrapper {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 1000;
+}
+
+.controls {
+  position: relative;
+  background: rgba(255,255,255,0.95);
+  padding: 15px;
+  border-radius: 15px 0 0 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: -2px 2px 15px rgba(0,0,0,0.3);
+  transform: translateX(0);
+  transition: transform 0.4s ease;
+  width: 140px;
+}
+.controls.hide {
+  transform: translateX(100%);
+}
+
+/* Handle chevron */
+#toggleHandle {
+  position: absolute;
+  top: 50%;
+  left: -20px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 60px;
+  background: #d4af37;
+  border-radius: 10px 0 0 10px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  user-select: none;
+  text-align: center;
+  line-height: 60px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Tombol dan select */
+button, select {
+  padding: 8px 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: bold;
+  background: #d4af37;
+  color: #222;
+  transition: 0.3s;
+  width: 100%;
+}
+button:hover, select:hover { background: #b7950b; }
+
+/* Toggle Switch */
+.switch { position: relative; display: inline-block; width: 60px; height: 34px; margin-bottom:10px; }
+.switch input { display: none; }
+.slider {
+  position: absolute; cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #ccc; transition: .4s; border-radius: 34px;
+}
+.slider:before {
+  position: absolute; content: "🌞";
+  height: 26px; width: 26px;
+  left: 4px; bottom: 4px;
+  background-color: white;
+  text-align: center; line-height: 26px;
+  font-size: 18px;
+  transition: .4s; border-radius: 50%;
+}
+input:checked + .slider { background-color: #666; }
+input:checked + .slider:before { transform: translateX(26px); content: "🌙"; }
+
+/* Animasi */
+.emoji {
+  position: fixed;
+  top: -50px;
+  font-size: 24px;
+  animation: fall 10s linear infinite;
+  z-index: 999;
+  animation-play-state: running;
+  pointer-events: none;
+}
+@keyframes fall {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(110vh) rotate(360deg); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+<div class="overlay">
+  <h2>Undangan Pernikahan</h2>
+  <h1>Reza & Nisa</h1>
+
+  <div class="invitation">
+    <div style="margin-bottom: 20px;">
+      <h3>﷽</h3>
+      <p style="font-size:20px; margin: 0;">السلام عليكم ورحمة الله وبركاته</p>
+    </div>
+
+    <p style="margin-bottom: 15px;">
+      Dengan rahmat dan izin Allah SWT, kami akan menyelenggarakan akad dan resepsi pernikahan kami.
+    </p>
+
+    <p id="guestText" style="font-weight:bold; font-size:18px; color:#b76e79; margin: 15px 0;"></p>
+
+    <p style="margin-bottom: 25px;">
+      Dengan penuh kehangatan dan hormat, kami mengundang Bapak/Ibu/Saudara/i <span id="guestNameSpan"></span> untuk hadir dan berbagi kebahagiaan serta doa restu pada hari istimewa kami. Kehadiran Anda akan menjadi anugerah yang sangat berarti bagi kami.
+    </p>
+
+    <div class="section">
+      <h2>📅 Akad Nikah</h2>
+      <p><strong>Tanggal:</strong> Minggu, 20 Oktober 2025</p>
+      <p><strong>🕘 Waktu:</strong> 08.00 WIB</p>
+      <p><strong>📍 Tempat:</strong> Masjid Al-Ikhlas, Jakarta</p>
+    </div>
+
+    <div class="section">
+      <h2>🎉 Resepsi Pernikahan</h2>
+      <p><strong>Tanggal:</strong> Minggu, 20 Oktober 2025</p>
+      <p><strong>🕙 Waktu:</strong> 10.00 WIB - selesai</p>
+      <p><strong>📍 Tempat:</strong> Gedung Serbaguna Jakarta</p>
+    </div>
+
+    <a href="https://www.google.com/maps/place/Gedung+Serbaguna+Jakarta/"
+       target="_blank" class="map-link">
+       📍 Lihat Lokasi di Google Maps
+    </a>
+
+    <p style="margin-top: 20px;">
+      Kehadiran dan doa restu dari <span id="guestNameSpan"></span> akan menjadi kebahagiaan yang sangat berarti bagi kami berdua.
+    </p>
+
+    <footer>
+      وَالسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ<br><br>
+      Salam hangat,<br><b>Reza & Nisa</b><br><br>
+      <span style="font-size:12px; color:rgba(0,0,0,0.5);">© Designed by Zaputlah</span>
+    </footer>
+  </div>
+</div>
+
+<!-- Kontrol floating -->
+<div class="controls-wrapper">
+  <div class="controls" id="controlsPanel">
+    <label class="switch">
+      <input type="checkbox" id="modeToggle">
+      <span class="slider"></span>
+    </label>
+    <button onclick="toggleEmojis()" id="emojiBtn">⏸️ Hentikan Jatuhan</button>
+    <select id="effectSelector">
+      <option value="flower">🌸 Bunga</option>
+      <option value="heart">❤️ Hati</option>
+      <option value="leaf">🍂 Daun</option>
+      <option value="confetti">🎉 Confetti</option>
+    </select>
+
+    <!-- Handle chevron -->
+    <div id="toggleHandle" onclick="toggleControls()">></div>
+  </div>
+</div>
+
+<script>
+// Dark mode
+document.getElementById("modeToggle").addEventListener("change", e => {
+  document.body.classList.toggle("dark-mode", e.target.checked);
+});
+
+// Guest name dari URL
+const params = new URLSearchParams(window.location.search);
+const guest = params.get("name");
+if (guest) {
+  document.getElementById("guestText").innerText = "Kepada Yth. " + guest;
+  document.querySelectorAll("#guestNameSpan").forEach(el => el.innerText = guest);
+}
+
+// Emoji jatuh
+let emojiInterval;
+let emojisPaused = false;
+let currentEffect = "flower";
+
+function getEmoji(type) {
+  if (type === "flower") return Math.random() > 0.5 ? "🌸" : "💮";
+  if (type === "heart") return "❤️";
+  if (type === "leaf") return "🍂";
+  if (type === "confetti") return "🎉";
+}
+
+function createEmoji() {
+  const emoji = document.createElement("div");
+  emoji.classList.add("emoji");
+  emoji.innerText = getEmoji(currentEffect);
+  emoji.style.left = Math.random() * window.innerWidth + "px";
+  emoji.style.animationDuration = (Math.random() * 5 + 5) + "s";
+  document.body.appendChild(emoji);
+  setTimeout(() => emoji.remove(), 10000);
+}
+
+function startEmojis() {
+  if (!emojiInterval) emojiInterval = setInterval(createEmoji, 700);
+  document.querySelectorAll(".emoji").forEach(e => e.style.animationPlayState = "running");
+}
+
+function pauseEmojis() {
+  document.querySelectorAll(".emoji").forEach(e => e.style.animationPlayState = "paused");
+}
+
+function toggleEmojis() {
+  const btn = document.getElementById("emojiBtn");
+  if (emojisPaused) {
+    startEmojis();
+    btn.innerText = "⏸️ Hentikan";
+    emojisPaused = false;
+  } else {
+    pauseEmojis();
+    clearInterval(emojiInterval);
+    emojiInterval = null;
+    btn.innerText = "▶️ Lanjutkan";
+    emojisPaused = true;
+  }
+}
+
+document.getElementById("effectSelector").addEventListener("change", e => {
+  currentEffect = e.target.value;
+});
+
+startEmojis();
+
+// Toggle panel
+function toggleControls() {
+  const panel = document.getElementById('controlsPanel');
+  const handle = document.getElementById('toggleHandle');
+  
+  panel.classList.toggle('hide'); // geser panel keluar/masuk
+  
+  // Ganti chevron sesuai status
+  if(panel.classList.contains('hide')){
+    handle.innerText = '<'; // panel tertutup
+  } else {
+    handle.innerText = '>'; // panel terbuka
+  }
+}
+</script>
+</body>
+</html>
